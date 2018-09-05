@@ -18,3 +18,10 @@ class EdgeContainer {
     this.y = y;
   }
 }
+
+class Scene {
+  constructor(nodes, edges) {
+    this.nodes = nodes;
+    this.edges = edges;
+  }
+}
