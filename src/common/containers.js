@@ -1,15 +1,17 @@
 
-class NodeContainer {
-  constructor(name, icon, label, x, y) {
+export class NodeContainer {
+  constructor(name, icon, label, x, y, width, height) {
     this.name = name;
     this.icon = icon;
     this.label = label;
     this.x = x;
     this.y = y;
+    this.width = width;
+    this.height = height;
   }
 }
 
-class EdgeContainer {
+export class EdgeContainer {
   constructor(from, to, label, x, y) {
     this.from = from;
     this.to = to;
@@ -19,7 +21,7 @@ class EdgeContainer {
   }
 }
 
-class Scene {
+export class Scene {
   constructor(nodes, edges) {
     this.nodes = nodes;
     this.edges = edges;
