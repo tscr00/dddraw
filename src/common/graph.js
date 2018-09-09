@@ -24,11 +24,14 @@ export default function updateLayout(nodes, edges) {
   dagre.layout(g);
 
   nodes.forEach(node => {
-    console.log(node.name);
-    console.log(g.node(node.name));
     let graphNode = g.node(node.name);
 
     node.x = graphNode.x;
     node.y = graphNode.y;
+  });
+
+  edges.forEach(edge => {
+    let graphEdge = g.edge({v: edge.from, w: edge.to});
+    edge.points = graphEdge.points;
   });
 }

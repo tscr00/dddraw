@@ -12,12 +12,11 @@ export class NodeContainer {
 }
 
 export class EdgeContainer {
-  constructor(from, to, label, x, y) {
+  constructor(from, to, label, points) {
     this.from = from;
     this.to = to;
     this.label = label;
-    this.x = x;
-    this.y = y;
+    this.points = points;
   }
 }
 
