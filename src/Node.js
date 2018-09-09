@@ -2,8 +2,8 @@ import React from 'react';
 
 const Node = ({nodeContainer}) => {
   let style = {
-    left: nodeContainer.x,
-    top: nodeContainer.y,
+    left: nodeContainer.x - nodeContainer.width / 2,
+    top: nodeContainer.y - nodeContainer.height / 2,
     position: 'absolute',
     width: nodeContainer.width,
     height: nodeContainer.height,
