@@ -7,11 +7,27 @@ const Node = ({nodeContainer}) => {
     position: 'absolute',
     width: nodeContainer.width,
     height: nodeContainer.height,
-    backgroundColor: "#36A3FC",
-    boxShadow: '0 4px 3px rgba(62, 162, 244, .1)',
-    borderRadius: '6px',
-    color: '#FFFFFF',
-    fontSize: 'large',
+    //padding: "0 6px",
+    backgroundColor: "#FFFFFF",
+    boxShadow: '0 4px 8px rgba(47, 135, 243, 0.1)',
+
+    borderRadius: '2px',
+
+    borderBottomColor: 'rgb(47, 135, 243, 0.1)',
+    borderBottomStyle: 'solid',
+    borderBottomWidth: '1px',
+    borderTopColor: 'rgb(47, 135, 243, 0.1)',
+    borderTopStyle: 'solid',
+    borderTopWidth: '1px',
+    borderLeftColor: 'rgb(47, 135, 243, 0.1)',
+    borderLeftStyle: 'solid',
+    borderLeftWidth: '1px',
+    borderRightColor: 'rgb(47, 135, 243, 0.1)',
+    borderRightStyle: 'solid',
+    borderRightWidth: '1px',
+
+    color: 'rgb(47, 135, 243)',
+    fontSize: '14px',
   };
 
   return (

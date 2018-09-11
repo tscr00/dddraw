@@ -20,12 +20,12 @@ class App extends Component {
 
     // temporary settings for testing
     let nodes = [
-      new NodeContainer('user', null, 'user', 0, 0, 128, 64),
-      new NodeContainer('loadbalancer', null, 'load balancer', 0, 0, 128, 64),
-      new NodeContainer('appserver1', null, 'appserver', 0, 0, 128, 64),
-      new NodeContainer('appserver2', null, 'appserver', 0, 0, 128, 64),
-      new NodeContainer('appserver3', null, 'appserver', 0, 0, 128, 64),
-      new NodeContainer('db', null, 'database', 0, 0, 128, 64),
+      new NodeContainer('user', null, 'user', 0, 0, 96, 48),
+      new NodeContainer('loadbalancer', null, 'load balancer', 0, 0, 96, 48),
+      new NodeContainer('appserver1', null, 'appserver', 0, 0, 96, 48),
+      new NodeContainer('appserver2', null, 'appserver', 0, 0, 96, 48),
+      new NodeContainer('appserver3', null, 'appserver', 0, 0, 96, 48),
+      new NodeContainer('db', null, 'database', 0, 0, 96, 48),
     ];
 
     let edges = [

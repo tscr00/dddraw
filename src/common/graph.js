@@ -4,9 +4,14 @@ let dagre = require("dagre");
  * Updates (x, y) coordinates for nodes and edges in-place.
  */
 export default function updateLayout(nodes, edges) {
+  let layoutSettings = {
+    ranker: 'tight-tree',
+  };
+
   let g = new dagre.graphlib.Graph();
 
   g.setGraph({});
+
   g.setDefaultEdgeLabel(function() { return {}; });
 
   nodes.forEach(node =>
@@ -21,7 +26,7 @@ export default function updateLayout(nodes, edges) {
     g.setEdge(edge.from, edge.to)
   );
 
-  dagre.layout(g);
+  dagre.layout(g, layoutSettings);
 
   nodes.forEach(node => {
     let graphNode = g.node(node.name);
