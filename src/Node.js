@@ -27,12 +27,12 @@ const Node = ({nodeContainer}) => {
     borderRightWidth: '1px',
 
     color: 'rgb(47, 135, 243)',
-    fontSize: '14px',
+    fontSize: '18px',
   };
 
   return (
     <div style={style}>
-      <p>{nodeContainer.label}</p>
+      <span>{nodeContainer.label}</span>
     </div>
   );
 };

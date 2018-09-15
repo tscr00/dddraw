@@ -20,22 +20,22 @@ class App extends Component {
 
     // temporary settings for testing
     let nodes = [
-      new NodeContainer('user', null, 'user', 0, 0, 96, 48),
-      new NodeContainer('loadbalancer', null, 'load balancer', 0, 0, 96, 48),
-      new NodeContainer('appserver1', null, 'appserver', 0, 0, 96, 48),
-      new NodeContainer('appserver2', null, 'appserver', 0, 0, 96, 48),
-      new NodeContainer('appserver3', null, 'appserver', 0, 0, 96, 48),
-      new NodeContainer('db', null, 'database', 0, 0, 96, 48),
+      new NodeContainer('user', null, 'user', 128, 128, 96, 64),
+      new NodeContainer('loadbalancer', null, 'load balancer', 128, 256, 96, 64),
+      // new NodeContainer('appserver1', null, 'appserver', 200, 0, 96, 48),
+      // new NodeContainer('appserver2', null, 'appserver', 300, 0, 96, 48),
+      // new NodeContainer('appserver3', null, 'appserver', 400, 0, 96, 48),
+      // new NodeContainer('db', null, 'database', 500, 0, 96, 48),
     ];
 
     let edges = [
       new EdgeContainer('user', 'loadbalancer', 'request', 0, 0),
-      new EdgeContainer('loadbalancer', 'appserver1', 'forward', 0, 0),
-      new EdgeContainer('loadbalancer', 'appserver2', 'forward', 0, 0),
-      new EdgeContainer('loadbalancer', 'appserver3', 'forward', 0, 0),
-      new EdgeContainer('appserver1', 'db', 'sql', 0, 0),
-      new EdgeContainer('appserver2', 'db', 'sql', 0, 0),
-      new EdgeContainer('appserver3', 'db', 'sql', 0, 0),
+      // new EdgeContainer('loadbalancer', 'appserver1', 'forward', 0, 0),
+      // new EdgeContainer('loadbalancer', 'appserver2', 'forward', 0, 0),
+      // new EdgeContainer('loadbalancer', 'appserver3', 'forward', 0, 0),
+      // new EdgeContainer('appserver1', 'db', 'sql', 0, 0),
+      // new EdgeContainer('appserver2', 'db', 'sql', 0, 0),
+      // new EdgeContainer('appserver3', 'db', 'sql', 0, 0),
     ];
 
     let scene = new Scene(nodes, edges);

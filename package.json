@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^3.5.1",
-    "dagre": "^0.8.2",
+    "devicon": "^2.0.0",
     "react": "^16.4.2",
     "react-ace": "^6.1.4",
     "react-dom": "^16.4.2",
