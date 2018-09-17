@@ -2,8 +2,8 @@ import React from 'react';
 
 const Node = ({nodeContainer}) => {
   let style = {
-    left: nodeContainer.x - nodeContainer.width / 2,
-    top: nodeContainer.y - nodeContainer.height / 2,
+    //left: nodeContainer.x - nodeContainer.width / 2,
+    //top: nodeContainer.y - nodeContainer.height / 2,
     position: 'absolute',
     width: nodeContainer.width,
     height: nodeContainer.height,
@@ -28,6 +28,8 @@ const Node = ({nodeContainer}) => {
 
     color: 'rgb(47, 135, 243)',
     fontSize: '18px',
+
+    cursor: 'grab',
   };
 
   return (

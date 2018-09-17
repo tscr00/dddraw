@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^3.5.1",
+    "@blueprintjs/core": "^3.6.1",
     "devicon": "^2.0.0",
+    "fastpriorityqueue": "^0.6.1",
+    "immutable": "^3.8.2",
     "react": "^16.4.2",
     "react-ace": "^6.1.4",
     "react-dom": "^16.4.2",
+    "react-draggable": "^3.0.5",
     "react-scripts": "1.1.5",
     "typeface-roboto": "0.0.54"
   },
@@ -16,5 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "prettier": "^1.14.2"
   }
 }
