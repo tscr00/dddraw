@@ -19,19 +19,19 @@ class App extends Component {
         "loadbalancer",
         new NodeContainer("loadbalancer", null, "load balancer", 0, 0, 96, 64)
       ],
-      [
-        "appserver1",
-        new NodeContainer("appserver1", null, "appserver", 0, 0, 96, 64)
-      ],
-      [
-        "appserver2",
-        new NodeContainer("appserver2", null, "appserver", 0, 0, 96, 64)
-      ],
-      [
-        "appserver3",
-        new NodeContainer("appserver3", null, "appserver", 0, 0, 96, 64)
-      ],
-      ["db", new NodeContainer("db", null, "database", 0, 0, 96, 64)]
+      // [
+      //   "appserver1",
+      //   new NodeContainer("appserver1", null, "appserver", 0, 0, 96, 64)
+      // ],
+      // [
+      //   "appserver2",
+      //   new NodeContainer("appserver2", null, "appserver", 0, 0, 96, 64)
+      // ],
+      // [
+      //   "appserver3",
+      //   new NodeContainer("appserver3", null, "appserver", 0, 0, 96, 64)
+      // ],
+      // ["db", new NodeContainer("db", null, "database", 0, 0, 96, 64)]
     ]);
 
     let edges = [
