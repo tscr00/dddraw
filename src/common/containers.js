@@ -1,28 +1,21 @@
+import { Record, Map } from 'immutable';
 
-export class NodeContainer {
-  constructor(name, icon, label, x, y, width, height) {
-    this.name = name;
-    this.icon = icon;
-    this.label = label;
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  }
-}
+export const NodeContainer = Record({
+  name: '',
+  icon: null,
+  label: 'block',
+  x: 0,
+  y: 0,
+  width: 128,
+  height: 64
+});
 
-export class EdgeContainer {
-  constructor(from, to, label, points) {
-    this.from = from;
-    this.to = to;
-    this.label = label;
-    this.points = points;
-  }
-}
+export const EdgeContainer = Record({
+  name: '',
+  from: null,
+  to: null,
+  label: '',
+  points: []
+});
 
-export class Scene {
-  constructor(nodes, edges) {
-    this.nodes = nodes;
-    this.edges = edges;
-  }
-}
+export const Scene = Record({ nodes: Map(), edges: Map() });

@@ -1,5 +1,5 @@
-import { Record, Map } from "immutable";
-import FastPriorityQueue from "fastpriorityqueue";
+import { Record, Map } from 'immutable';
+import BinaryHeap from './heap';
 
 const GridPoint = Record({ i: 0, j: 0 });
 
@@ -10,8 +10,8 @@ export default function updateLayout(nodes, edges, gridStep) {
   const toCoords = value => Math.ceil(value / gridStep);
 
   const nodeCenter = node => [
-    toCoords(node.x + node.width * 0.5),
-    toCoords(node.y + node.height * 0.5)
+    Math.round((node.y + node.height * 0.5) / gridStep),
+    Math.round((node.x + node.width * 0.5) / gridStep),
   ];
 
   let maxX = Math.max(
@@ -28,7 +28,7 @@ export default function updateLayout(nodes, edges, gridStep) {
   // mark cells as occupied for every node
   nodes.forEach((node, _, m) => fillNodeShape(grid, gridStep, node, true));
 
-  edges.forEach(edge => {
+  edges.forEach((edge, name, _) => {
     let nodeFrom = nodes.get(edge.from);
     let nodeTo = nodes.get(edge.to);
 
@@ -40,7 +40,7 @@ export default function updateLayout(nodes, edges, gridStep) {
     let target = nodeCenter(nodeTo);
 
     let path = findPath(start, target, grid);
-    console.log(path);
+    // console.log(path);
 
     // after processing return the cells to their original value
     fillNodeShape(grid, gridStep, nodeFrom, true);
@@ -91,23 +91,21 @@ function rebuildPath(start, parent) {
  */
 function findPath(start, target, grid) {
   if (grid.length === 0) {
-    throw new Error("grid cannot be empty");
+    throw new Error('grid cannot be empty');
   }
 
   const startPoint = GridPoint({ i: start[0], j: start[1] });
   const targetPoint = GridPoint({ i: target[0], j: target[1] });
 
   let gridDim = [grid.length, grid[0].length];
-  let visitGrid = createGrid(...gridDim, false);
-  let nodeQueue = new FastPriorityQueue((node1, node2) => node1[0] < node2[0]);
+  let visitGrid = createGrid(gridDim[1], gridDim[0], false);
+  let nodeQueue = new BinaryHeap((node1, node2) => node1[0] < node2[0]);
   let parent = Map();
 
-  nodeQueue.add([0, 0, startPoint]);
+  nodeQueue.push([0, 0, startPoint]);
 
-  while (!nodeQueue.isEmpty()) {
-    let [estimate, cost, node] = nodeQueue.poll();
-
-    //console.log(estimate, cost, node);
+  while (!nodeQueue.empty()) {
+    let [estimate, cost, node] = nodeQueue.pop();
 
     if (visitGrid[node.i][node.j]) {
       continue;
@@ -122,7 +120,7 @@ function findPath(start, target, grid) {
       [node.i - 1, node.j],
       [node.i + 1, node.j],
       [node.i, node.j - 1],
-      [node.i, node.j + 1]
+      [node.i, node.j + 1],
     ];
 
     for (let neighbor of neighbors) {
@@ -145,7 +143,7 @@ function findPath(start, target, grid) {
 
       neighborCost += parentNode.i !== i && parentNode.j !== j ? 1 : 0;
 
-      nodeQueue.add([neighborEstimate, neighborCost, neighborNode]);
+      nodeQueue.push([neighborEstimate, neighborCost, neighborNode]);
     }
   }
 

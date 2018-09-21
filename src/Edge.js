@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 
-const Edge = ({edgeContainer}) => {
-  if (!edgeContainer.points) {
-    return null;
-  }
-
-  const margin = 32;
-
-  let points = edgeContainer.points;
-
-  let leftX = Math.min(...points.map(point => point.x));
-  let topY = Math.min(...points.map(point => point.y));
-
-  let style = {
-    position: 'absolute',
-    top: topY - margin,
-    left: leftX - margin,
-  };
-
-  let svgPoints = points.map(coord => `${coord.x - leftX + margin},${coord.y - topY + margin}`).join(' ');
+const Edge = ({ edgeContainer }) => {
+  // if (!edgeContainer.points) {
+  //   return null;
+  // }
+  //
+  // const margin = 32;
+  //
+  // let points = edgeContainer.points;
+  //
+  // let leftX = Math.min(...points.map(point => point.x));
+  // let topY = Math.min(...points.map(point => point.y));
+  //
+  // let style = {
+  //   position: 'absolute',
+  //   top: topY - margin,
+  //   left: leftX - margin,
+  // };
+  //
+  // let svgPoints = points.map(coord => `${coord.x - leftX + margin},${coord.y - topY + margin}`).join(' ');
 
   return null;
 

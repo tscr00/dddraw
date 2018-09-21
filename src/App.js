@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 
 import Draggable from "react-draggable";
+import { Map } from "immutable";
 
 import updateLayout from "./common/graph";
 import Node from "./Node";
@@ -13,16 +14,29 @@ class App extends Component {
     super(props);
 
     // temporary settings for testing
-    let nodes = new Map([
-      ["user", new NodeContainer("user", null, "user", 0, 0, 96, 64)],
+    let nodes = Map([
+      [
+        "user",
+        NodeContainer({ name: "user", label: "user", width: 96, height: 64 })
+      ],
       [
         "loadbalancer",
-        new NodeContainer("loadbalancer", null, "load balancer", 0, 0, 96, 64)
+        NodeContainer({
+          name: "loadbalancer",
+          label: "load balancer",
+          width: 96,
+          height: 64
+        })
       ],
-      // [
-      //   "appserver1",
-      //   new NodeContainer("appserver1", null, "appserver", 0, 0, 96, 64)
-      // ],
+      [
+        "appserver1",
+        NodeContainer({
+          name: "appserver1",
+          label: "appserver",
+          width: 96,
+          height: 64
+        })
+      ]
       // [
       //   "appserver2",
       //   new NodeContainer("appserver2", null, "appserver", 0, 0, 96, 64)
@@ -34,17 +48,20 @@ class App extends Component {
       // ["db", new NodeContainer("db", null, "database", 0, 0, 96, 64)]
     ]);
 
-    let edges = [
-      new EdgeContainer("user", "loadbalancer", "request", 0, 0)
+    let edges = Map([
+      [
+        "user-load",
+        EdgeContainer({ name: "request", from: "user", to: "loadbalancer" })
+      ]
       // new EdgeContainer('loadbalancer', 'appserver1', 'forward', 0, 0),
       // new EdgeContainer('loadbalancer', 'appserver2', 'forward', 0, 0),
       // new EdgeContainer('loadbalancer', 'appserver3', 'forward', 0, 0),
       // new EdgeContainer('appserver1', 'db', 'sql', 0, 0),
       // new EdgeContainer('appserver2', 'db', 'sql', 0, 0),
       // new EdgeContainer('appserver3', 'db', 'sql', 0, 0),
-    ];
+    ]);
 
-    let scene = new Scene(nodes, edges);
+    let scene = Scene({ nodes: nodes, edges: edges });
 
     this.state = {
       scene
@@ -56,13 +73,22 @@ class App extends Component {
 
     updateLayout(scene.nodes, scene.edges, 16);
 
-    let { nodes, edges } = this.state.scene;
+    let {
+      scene: { nodes, edges }
+    } = this.state;
 
     let nodeElements = Array.from(nodes.values()).map(node => {
       const changeCoords = (e, ui) => {
-        node.x = ui.x;
-        node.y = ui.y;
-        this.setState({});
+        const x = Math.max(0, ui.x);
+        const y = Math.max(0, ui.y);
+
+        const translatedNode = node.set("x", x).set("y", y);
+        const updatedNodes = nodes.set(node.name, translatedNode);
+        const updatedScene = scene.set("nodes", updatedNodes);
+
+        this.setState(state => {
+          return { scene: updatedScene };
+        });
       };
 
       return (
@@ -82,12 +108,7 @@ class App extends Component {
       <Edge key={`${edge.from}-${edge.to}`} edgeContainer={edge} />
     ));
 
-    return (
-      <div className="App">
-        {nodeElements}
-        {edgeElements}
-      </div>
-    );
+    return <div className="App">{nodeElements}</div>;
   }
 }
 
