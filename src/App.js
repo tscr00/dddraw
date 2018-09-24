@@ -4,7 +4,7 @@ import "./App.css";
 import Draggable from "react-draggable";
 import { Map } from "immutable";
 
-import updateLayout from "./common/graph";
+import rerouteEdges from "./common/graph";
 import Node from "./Node";
 import Edge from "./Edge";
 import { NodeContainer, EdgeContainer, Scene } from "./common/containers";
@@ -69,9 +69,10 @@ class App extends Component {
   }
 
   render() {
+    const gridStep = 16;
     let scene = this.state.scene;
 
-    updateLayout(scene.nodes, scene.edges, 16);
+    const paths = rerouteEdges(scene.nodes, scene.edges, gridStep);
 
     let {
       scene: { nodes, edges }
@@ -105,10 +106,15 @@ class App extends Component {
     });
 
     let edgeElements = edges.map(edge => (
-      <Edge key={`${edge.from}-${edge.to}`} edgeContainer={edge} />
+      <Edge key={`${edge.from}-${edge.to}`} gridStep={gridStep} paths={paths} />
     ));
 
-    return <div className="App">{nodeElements}</div>;
+    return (
+      <div className="App">
+        {edgeElements}
+        {nodeElements}
+      </div>
+    );
   }
 }
 

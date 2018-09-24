@@ -4,9 +4,9 @@ import BinaryHeap from './heap';
 const GridPoint = Record({ i: 0, j: 0 });
 
 /**
- * Updates (x, y) coordinates for nodes and edges in-place.
+ * Recalculates edge routes between nodes without intersection.
  */
-export default function updateLayout(nodes, edges, gridStep) {
+export default function rerouteEdges(nodes, edges, gridStep) {
   const toCoords = value => Math.ceil(value / gridStep);
 
   const nodeCenter = node => [
@@ -28,6 +28,9 @@ export default function updateLayout(nodes, edges, gridStep) {
   // mark cells as occupied for every node
   nodes.forEach((node, _, m) => fillNodeShape(grid, gridStep, node, true));
 
+  // accumulate paths for every edge (if reachable)
+  let paths = Map();
+
   edges.forEach((edge, name, _) => {
     let nodeFrom = nodes.get(edge.from);
     let nodeTo = nodes.get(edge.to);
@@ -40,12 +43,15 @@ export default function updateLayout(nodes, edges, gridStep) {
     let target = nodeCenter(nodeTo);
 
     let path = findPath(start, target, grid);
-    // console.log(path);
+
+    paths = paths.set(name, path);
 
     // after processing return the cells to their original value
     fillNodeShape(grid, gridStep, nodeFrom, true);
     fillNodeShape(grid, gridStep, nodeTo, true);
   });
+
+  return paths;
 }
 
 /**
