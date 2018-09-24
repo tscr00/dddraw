@@ -149,28 +149,3 @@ function findPath(start, target, grid) {
 
   return [];
 }
-
-class Rect {
-  constructor(left, top, bottom, right) {
-    this.left = left;
-    this.top = top;
-    this.bottom = bottom;
-    this.right = right;
-  }
-}
-
-class Point {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-}
-
-class Segment {
-  constructor(x1, y1, x2, y2) {
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
-  }
-}
