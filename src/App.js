@@ -105,9 +105,7 @@ class App extends Component {
       );
     });
 
-    let edgeElements = edges.map(edge => (
-      <Edge key={`${edge.from}-${edge.to}`} gridStep={gridStep} paths={paths} />
-    ));
+    let edgeElements = <Edge gridStep={gridStep} paths={paths} />;
 
     return (
       <div className="App">

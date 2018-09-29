@@ -1,7 +1,14 @@
-import { Record, Map } from 'immutable';
-import BinaryHeap from './heap';
+import { Record, Map } from "immutable";
+import BinaryHeap from "./heap";
 
+const DIR = {
+  UP: 0,
+  RIGHT: 1,
+  DOWN: 2,
+  LEFT: 3
+};
 const GridPoint = Record({ i: 0, j: 0 });
+const PathPoint = Record({ i: 0, j: 0, dir: DIR.UP });
 
 /**
  * Recalculates edge routes between nodes without intersection.
@@ -11,7 +18,7 @@ export default function rerouteEdges(nodes, edges, gridStep) {
 
   const nodeCenter = node => [
     Math.round((node.y + node.height * 0.5) / gridStep),
-    Math.round((node.x + node.width * 0.5) / gridStep),
+    Math.round((node.x + node.width * 0.5) / gridStep)
   ];
 
   let maxX = Math.max(
@@ -81,7 +88,7 @@ function rebuildPath(start, parent) {
   let node = start;
   let path = [[start.i, start.j]];
 
-  while (parent.has(node)) {
+  while (parent.has(node) && parent.get(node)) {
     node = parent.get(node);
     path.push([node.i, node.j]);
   }
@@ -97,59 +104,61 @@ function rebuildPath(start, parent) {
  */
 function findPath(start, target, grid) {
   if (grid.length === 0) {
-    throw new Error('grid cannot be empty');
+    throw new Error("grid cannot be empty");
   }
 
   const startPoint = GridPoint({ i: start[0], j: start[1] });
   const targetPoint = GridPoint({ i: target[0], j: target[1] });
 
   let gridDim = [grid.length, grid[0].length];
-  let visitGrid = createGrid(gridDim[1], gridDim[0], false);
+  // let visitGrid = createGrid(gridDim[1], gridDim[0], Infinity);
   let nodeQueue = new BinaryHeap((node1, node2) => node1[0] < node2[0]);
   let parent = Map();
 
-  nodeQueue.push([0, 0, startPoint]);
+  nodeQueue.push([0, 0, PathPoint({i: start[0], j: start[1], dir: null})], null);
 
   while (!nodeQueue.empty()) {
-    let [estimate, cost, node] = nodeQueue.pop();
+    let [estimate, cost, link, parentLink] = nodeQueue.pop();
 
-    if (visitGrid[node.i][node.j]) {
-      continue;
+    if (parent.has(link)) {
+      continue
+    } else {
+      parent = parent.set(link, parentLink);
     }
-    visitGrid[node.i][node.j] = true;
 
-    if (targetPoint.equals(node)) {
-      return rebuildPath(targetPoint, parent);
+    if (targetPoint.i === link.i && targetPoint.j === link.j) {
+      return rebuildPath(link, parent);
     }
 
     const neighbors = [
-      [node.i - 1, node.j],
-      [node.i + 1, node.j],
-      [node.i, node.j - 1],
-      [node.i, node.j + 1],
+      [link.i - 1, link.j, DIR.LEFT],
+      [link.i + 1, link.j, DIR.RIGHT],
+      [link.i, link.j - 1, DIR.UP],
+      [link.i, link.j + 1, DIR.DOWN],
     ];
 
     for (let neighbor of neighbors) {
-      const [i, j] = neighbor;
-      const neighborNode = GridPoint({ i, j });
+      const [i, j, dir] = neighbor;
+      const neighborNode = PathPoint({ i, j, dir });
 
       const outOfGrid = i < 0 || i >= gridDim[0] || j < 0 || j >= gridDim[1];
 
-      if (outOfGrid || visitGrid[i][j] || grid[i][j]) {
+      if (outOfGrid || grid[i][j]) {
         continue;
       }
 
-      parent = parent.set(neighborNode, node);
-
       let neighborCost = cost + 1;
-      let neighborEstimate = Math.abs(targetPoint.i - i) + Math.abs(targetPoint.j - j);
 
       // add penalty for turns
-      const parentNode = parent.get(node, neighborNode);
+      // const parentNode = parent.get(node, neighborNode);
+      neighborCost += parentLink && link.dir !== dir ? 1 : 0;
 
-      neighborCost += parentNode.i !== i && parentNode.j !== j ? 1 : 0;
+      let neighborEstimate =
+        neighborCost +
+        Math.abs(targetPoint.i - i) +
+        Math.abs(targetPoint.j - j);
 
-      nodeQueue.push([neighborEstimate, neighborCost, neighborNode]);
+      nodeQueue.push([neighborEstimate, neighborCost, neighborNode, link]);
     }
   }
 
