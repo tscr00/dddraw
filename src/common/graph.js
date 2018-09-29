@@ -17,8 +17,8 @@ export default function rerouteEdges(nodes, edges, gridStep) {
   const toCoords = value => Math.ceil(value / gridStep);
 
   const nodeCenter = node => [
-    Math.round((node.y + node.height * 0.5) / gridStep),
-    Math.round((node.x + node.width * 0.5) / gridStep)
+    Math.floor((node.y + node.height * 0.5) / gridStep),
+    Math.floor((node.x + node.width * 0.5) / gridStep)
   ];
 
   let maxX = Math.max(

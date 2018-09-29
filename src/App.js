@@ -17,15 +17,24 @@ class App extends Component {
     let nodes = Map([
       [
         "user",
-        NodeContainer({ name: "user", label: "user", width: 96, height: 64 })
+        NodeContainer({
+          name: "user",
+          label: "user",
+          x: 0,
+          y: 256,
+          width: 96,
+          height: 48
+        })
       ],
       [
         "loadbalancer",
         NodeContainer({
           name: "loadbalancer",
           label: "load balancer",
+          x: 128,
+          y: 256,
           width: 96,
-          height: 64
+          height: 48
         })
       ],
       [
@@ -33,29 +42,76 @@ class App extends Component {
         NodeContainer({
           name: "appserver1",
           label: "appserver",
+          x: 256,
+          y: 196,
           width: 96,
-          height: 64
+          height: 48
+        })
+      ],
+      [
+        "appserver2",
+        new NodeContainer({
+          name: "appserver2",
+          label: "appserver",
+          x: 256,
+          y: 256,
+          width: 96,
+          height: 48
+        })
+      ],
+      [
+        "appserver3",
+        new NodeContainer({
+          name: "appserver3",
+          label: "appserver",
+          x: 256,
+          y: 320,
+          width: 96,
+          height: 48
+        })
+      ],
+      [
+        "db",
+        new NodeContainer({
+          name: "db",
+          label: "database",
+          x: 512,
+          y: 256,
+          width: 96,
+          height: 48
         })
       ]
-      // [
-      //   "appserver2",
-      //   new NodeContainer("appserver2", null, "appserver", 0, 0, 96, 64)
-      // ],
-      // [
-      //   "appserver3",
-      //   new NodeContainer("appserver3", null, "appserver", 0, 0, 96, 64)
-      // ],
-      // ["db", new NodeContainer("db", null, "database", 0, 0, 96, 64)]
     ]);
 
     let edges = Map([
       [
         "user-load",
         EdgeContainer({ name: "request", from: "user", to: "loadbalancer" })
+      ],
+      [
+        "load-app1",
+        new EdgeContainer({
+          name: "loadbalancer",
+          from: "loadbalancer",
+          to: "appserver1"
+        })
+      ],
+      [
+        "load-app2",
+        new EdgeContainer({
+          name: "loadbalancer",
+          from: "loadbalancer",
+          to: "appserver2"
+        })
+      ],
+      [
+        "load-app3",
+        new EdgeContainer({
+          name: "loadbalancer",
+          from: "loadbalancer",
+          to: "appserver3"
+        })
       ]
-      // new EdgeContainer('loadbalancer', 'appserver1', 'forward', 0, 0),
-      // new EdgeContainer('loadbalancer', 'appserver2', 'forward', 0, 0),
-      // new EdgeContainer('loadbalancer', 'appserver3', 'forward', 0, 0),
       // new EdgeContainer('appserver1', 'db', 'sql', 0, 0),
       // new EdgeContainer('appserver2', 'db', 'sql', 0, 0),
       // new EdgeContainer('appserver3', 'db', 'sql', 0, 0),
