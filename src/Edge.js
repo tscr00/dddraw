@@ -22,8 +22,7 @@ const Edge = ({ gridStep, paths }) => {
         points={points}
         fill="none"
         stroke="#555555"
-        strokeWidth={1}
-        markerEnd="url(#arrow)"
+        strokeWidth={1.5}
       />
     );
   });
